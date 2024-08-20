@@ -205,3 +205,21 @@ func (g *StaticGraph) NeighboursSet(v int) *set.IntSet {
 	}
 	return s
 }
+
+
+// Returns the adjacency list of a graph from a total ordering of the vertices
+func OrderAdjacencyList(g *StaticGraph, order []int) *StaticGraph{
+	orderedList := make([][]int, len(g.list))
+
+	for _, v := range order {
+		for _, neighbor := range g.list[v] {
+			orderedList[v]  = append(orderedList[v], neighbor)
+		}
+	}
+
+	for i , _ := range g.list {
+        copy(g.list[i], orderedList[i])
+	}
+	return g
+
+}
